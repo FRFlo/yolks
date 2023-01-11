@@ -15,9 +15,6 @@ RUN apt-get update && apt-get full-upgrade -y
 RUN apt-get install -y curl iproute2 apt-transport-https software-properties-common ca-certificates \
     openssl tar openjdk-11-jre git git-lfs
 
-
-RUN dpkg-reconfigure --frontend noninteractive locales
-
 WORKDIR /home/container
 
 COPY ./entrypoint.sh /entrypoint.sh
