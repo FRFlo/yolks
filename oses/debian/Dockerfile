@@ -16,8 +16,7 @@ RUN apt-get install -y curl iproute2 apt-transport-https software-properties-com
     openssl tar openjdk-11-jre git git-lfs
 
 
-RUN update-locale lang=en_US.UTF-8 \
-    && dpkg-reconfigure --frontend noninteractive locales
+RUN dpkg-reconfigure --frontend noninteractive locales
 
 WORKDIR /home/container
 
