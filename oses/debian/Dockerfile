@@ -19,6 +19,9 @@ RUN git config --global pull.rebase true \
     && git config --global fetch.prune true \
     && git config --global credential.helper store
 
+RUN git config --global credential.helper store \
+    && git config --global pull.ff only
+
 WORKDIR /home/container
 
 COPY ./entrypoint.sh /entrypoint.sh
