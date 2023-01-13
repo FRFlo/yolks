@@ -6,9 +6,11 @@ INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
 # Output Current Java Version
+printf "\033[1m\033[33mJexactyl: \033[0mjava -version\n"
 java -version
 
 # Update Current Git Version
+printf "\033[1m\033[33mJexactyl: \033[0mgit --version\n"
 git --version
 
 # Replace Startup Variables
