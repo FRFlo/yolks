@@ -13,7 +13,7 @@ ENV USER=container HOME=/home/container
 RUN apt-get update && apt-get full-upgrade -y
 
 RUN apt-get install -y curl iproute2 apt-transport-https software-properties-common ca-certificates \
-    openssl tar openjdk-11-jre git git-lfs
+    openssl tar openjdk-8-jre git git-lfs
 
 RUN git config --global pull.rebase true \
     && git config --global fetch.prune true \
