@@ -32,7 +32,7 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           context: ./java
-          file: ./oses/${{ matrix.tag }}/Dockerfile
+          file: ./java/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
