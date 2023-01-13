@@ -1,4 +1,4 @@
-name: build oses
+name: build java
 on:
   workflow_dispatch:
   schedule:
