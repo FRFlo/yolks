@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH debian:bullseye-slim
+FROM --platform=$TARGETOS/$TARGETARCH ghcr.io/pterodactyl/yolks:java_8
 
 LABEL author="FRFlo" maintainer="docker@frflo.ovh" version="1.0.0"
 LABEL org.opencontainers.image.source="https://github.com/FRFlo/yolks"
@@ -14,10 +14,6 @@ RUN apt-get update && apt-get full-upgrade -y
 
 RUN apt-get install -y curl iproute2 apt-transport-https software-properties-common ca-certificates \
     openssl tar git git-lfs
-
-RUN sudo apt-add-repository 'deb http://security.debian.org/debian-security stretch/updates main' \
-    && sudo apt update \
-    && sudo apt install openjdk-8-jdk
 
 RUN git config --global pull.rebase true \
     && git config --global fetch.prune true \
