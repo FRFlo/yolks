@@ -7,16 +7,16 @@ on:
     branches:
       - main
     paths:
-      - oses/**
+      - java/**
 jobs:
   push:
-    name: "yolks:${{ matrix.oses }}"
+    name: "yolks:java_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        oses:
-          - debian
+        tag:
+          - 8
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-qemu-action@v2
@@ -31,9 +31,10 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v3
         with:
-          context: ./oses/${{ matrix.oses }}
-          file: ./oses/${{ matrix.oses }}/Dockerfile
+          context: ./java
+          file: ./oses/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/frflo/yolks:${{ matrix.oses }}
+            ghcr.io/frflo/yolks:${{ matrix.tag }}
+
