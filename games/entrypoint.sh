@@ -33,6 +33,15 @@ else
     printf "\033[1m\033[33mPterodactyl: \033[0mUpdating process disabled...\n"
 fi
 
+# Warn the user for local changes
+if [ -d ".git" ]; then
+    if [ "$(git status --porcelain)" ]; then
+        printf "\033[1m\033[33mPterodactyl: \033[0mYour server directory contains modified files that are NOT part of this project:\n"
+        git status --porcelain
+    fi
+
+fi
+
 # Replace Startup Variables
 MODIFIED_STARTUP=$(echo -e ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
