@@ -68,7 +68,7 @@ fi
 if [ -d ".git" ]; then
     if [ "$(git status --porcelain)" ]; then
         printf "\033[1m\033[33mPterodactyl: \033[0mYour server directory contains modified files that are NOT part of this project:\n"
-        git_status();
+        git_status
     fi
 
 fi
