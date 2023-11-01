@@ -11,7 +11,7 @@ WORKDIR /home/container
 
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache curl iproute2 openssl tar git git-lfs tput
+    apk add --no-cache curl iproute2 openssl tar git git-lfs ncurses
 
 RUN rm -rf /var/cache/apk/*
 
