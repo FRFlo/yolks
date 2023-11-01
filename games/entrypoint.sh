@@ -1,4 +1,35 @@
 #!/bin/sh
+
+function git_status() {
+    awk -vOFS='' '
+    NR==FNR {
+        all[i++] = $0;
+        difffiles[$1] = $0;
+        next;
+    }
+    ! ($2 in difffiles) {
+        print; next;
+    }
+    {
+        gsub($2, difffiles[$2]);
+        print;
+    }
+    END {
+        if (NR != FNR) {
+            # Had diff output
+            exit;
+        }
+        # Had no diff output, just print lines from git status -sb
+        for (i in all) {
+            print all[i];
+        }
+    }
+' \
+    <(git diff --color --stat=$(($(tput cols) - 3)) HEAD | sed '$d; s/^ //')\
+    <(git -c color.status=always status -sb)
+}
+
+
 cd /home/container
 
 # Make internal Docker IP address available to processes.
@@ -37,7 +68,7 @@ fi
 if [ -d ".git" ]; then
     if [ "$(git status --porcelain)" ]; then
         printf "\033[1m\033[33mPterodactyl: \033[0mYour server directory contains modified files that are NOT part of this project:\n"
-        git status -sb
+        git_status();
     fi
 
 fi
