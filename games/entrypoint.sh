@@ -29,6 +29,8 @@ if [ "${UPDATE}" == "1" ]; then
         fi
     fi
     printf "\033[1m\033[33mPterodactyl: \033[0mUpdate process completed...\n"
+else
+    printf "\033[1m\033[33mPterodactyl: \033[0mUpdating process disabled...\n"
 fi
 
 # Replace Startup Variables
