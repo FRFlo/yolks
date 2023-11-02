@@ -29,6 +29,8 @@ function git_status() {
     <(git -c color.status=always status -sb)
 }
 
+# Variables
+PREFIX="\033[1m\033[33mPterodactyl: \033[0m "
 
 cd /home/container
 
@@ -37,37 +39,37 @@ INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
 # Update Current Git Version
-printf "\033[1m\033[33mPterodactyl: \033[0mgit --version\n"
+printf "${PREFIX}git --version\n"
 git --version
 
 # Pull Updates
 if [ "${UPDATE}" == "1" ]; then
-    printf "\033[1m\033[33mPterodactyl: \033[0mStarting update process...\n"
+    printf "${PREFIX}Starting update process...\n"
     if [ -d ".git" ]; then
         git pull
     else
         if [ ! "$(ls -A /home/container)" ]; then
-            printf "\033[1m\033[33mPterodactyl: \033[0mDownloading files...\n"
+            printf "${PREFIX}Downloading files...\n"
             if [ -n "${GIT_BRANCH}" ]; then
-                printf "\033[1m\033[33mPterodactyl: \033[0mUsing custom git branch: ${GIT_BRANCH}\n"
+                printf "${PREFIX}Using custom git branch: ${GIT_BRANCH}...\n"
                 git clone ${GIT_REPO} . -b ${GIT_BRANCH}
             else
-                printf "\033[1m\033[33mPterodactyl: \033[0mUsing default git branch\n"
+                printf "${PREFIX}Using default git branch...\n"
                 git clone ${GIT_REPO} .
             fi
         else
-            printf "\033[1m\033[33mPterodactyl: \033[0mDirectory not empty, cannot download, clear directory to allow it...\n"
+            printf "${PREFIX}Directory not empty, cannot download, clear directory to allow it...\n"
         fi
     fi
-    printf "\033[1m\033[33mPterodactyl: \033[0mUpdate process completed...\n"
+    printf "${PREFIX}Update process completed...\n"
 else
-    printf "\033[1m\033[33mPterodactyl: \033[0mUpdating process disabled...\n"
+    printf "${PREFIX}Updating process disabled...\n"
 fi
 
 # Warn the user for local changes
 if [ -d ".git" ]; then
     if [ "$(git status --porcelain)" ]; then
-        printf "\033[1m\033[33mPterodactyl: \033[0mYour server directory contains modified files that are NOT part of this project:\n"
+        printf "${PREFIX}Your server directory contains modified files that are NOT part of this project:\n"
         git_status
     fi
 
