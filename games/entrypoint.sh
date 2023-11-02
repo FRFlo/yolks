@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Functions
 function git_status() {
     awk -vOFS='' '
     NR==FNR {
@@ -32,9 +33,11 @@ function git_status() {
 # Variables
 PREFIX="\033[1m\033[33mPterodactyl:\033[0m "
 
-cd /home/container
+# Default the TZ environment variable to UTC.
+TZ=${TZ:-UTC}
+export TZ
 
-# Make internal Docker IP address available to processes.
+# Set environment variable that holds the Internal Docker IP
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
