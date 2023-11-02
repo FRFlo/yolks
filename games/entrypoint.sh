@@ -91,8 +91,10 @@ PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat
 
 # Inform the user of the server startup
 printf "\n"
-printf "${PREFIX}Starting server...\n"
-printf "${PREFIX}Server IP: ${INTERNAL_IP}\n"
-printf "${PREFIX}Startup command: ${PARSED}\n"
-printf "\n"
+printf "${PREFIX}Configuration of server:\n"
+printf "${PREFIX}- Server IP: ${INTERNAL_IP}\n"
+printf "${PREFIX}- Startup command: ${PARSED}\n"
+printf "${PREFIX}- Server ready to start\n"
+
+# Run the Server
 exec env ${PARSED}
