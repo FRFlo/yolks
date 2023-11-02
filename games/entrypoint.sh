@@ -45,12 +45,12 @@ export INTERNAL_IP
 cd /home/container || exit 1
 
 # Update Current Git Version
-printf "\n"
+printf '%.0s\n'
 printf "${PREFIX}git --version\n"
 git --version
 
 # Pull Updates
-printf "\n"
+printf '%.0s\n'
 if [ "${UPDATE}" == "1" ]; then
     printf "${PREFIX}Starting update process...\n"
     if [ -d ".git" ]; then
@@ -77,7 +77,7 @@ fi
 # Warn the user for local changes
 if [ -d ".git" ]; then
     if [ "$(git status --porcelain)" ]; then
-        printf "\n"
+        printf '%.0s\n'
         printf "${PREFIX}Your server directory contains modified files that are NOT part of this project:\n"
         git_status
     fi
@@ -90,11 +90,11 @@ fi
 PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
 
 # Inform the user of the server startup
-printf "\n"
+printf '%.0s\n'
 printf "${PREFIX}Configuration of server:\n"
 printf "${PREFIX}- Server IP: ${INTERNAL_IP}\n"
 printf "${PREFIX}- Startup command: ${PARSED}\n"
-printf "${PREFIX}- Server ready to start\n"
+printf "${PREFIX}- Server ready to start !\n"
 
 # Run the Server
 exec env ${PARSED}
