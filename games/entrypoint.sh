@@ -38,6 +38,9 @@ cd /home/container
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
 export INTERNAL_IP
 
+# Go to the server folder
+cd /home/container || exit 1
+
 # Update Current Git Version
 printf "${PREFIX}git --version\n"
 git --version
