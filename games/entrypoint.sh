@@ -30,7 +30,7 @@ function git_status() {
 }
 
 # Variables
-PREFIX="\033[1m\033[33mPterodactyl: \033[0m "
+PREFIX="\033[1m\033[33mPterodactyl:\033[0m "
 
 cd /home/container
 
