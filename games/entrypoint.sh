@@ -81,9 +81,12 @@ if [ -d ".git" ]; then
 
 fi
 
-# Replace Startup Variables
-MODIFIED_STARTUP=$(echo -e ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
+# Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
+# variable format of "${VARIABLE}" before evaluating the string and automatically
+# replacing the values.
+PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
 
-# Run the Server
-echo -e ":/home/container$ ${MODIFIED_STARTUP}"
-eval ${MODIFIED_STARTUP}
+# Inform the user of the server startup
+printf "${PREFIX}Startup command: ${PARSED}\n"
+printf "${PREFIX}Server container started!\n"
+exec env ${PARSED}
