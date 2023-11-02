@@ -52,7 +52,7 @@ git --version
 if [ "${UPDATE}" == "1" ]; then
     printf "${PREFIX}Starting update process...\n"
     if [ -d ".git" ]; then
-        git pull
+        git pull --rebase
     else
         if [ ! "$(ls -A /home/container)" ]; then
             printf "${PREFIX}Downloading files...\n"
