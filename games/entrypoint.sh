@@ -52,16 +52,16 @@ git --version
 if [ "${UPDATE}" == "1" ]; then
     printf "${PREFIX}Starting update process...\n"
     if [ -d ".git" ]; then
-        git pull --rebase
+        git pull --rebase --recurse-submodules
     else
         if [ ! "$(ls -A /home/container)" ]; then
             printf "${PREFIX}Downloading files...\n"
             if [ -n "${GIT_BRANCH}" ]; then
                 printf "${PREFIX}Using custom git branch: ${GIT_BRANCH}...\n"
-                git clone ${GIT_REPO} . -b ${GIT_BRANCH}
+                git clone ${GIT_REPO} . -b ${GIT_BRANCH} --recursive
             else
                 printf "${PREFIX}Using default git branch...\n"
-                git clone ${GIT_REPO} .
+                git clone ${GIT_REPO} . --recursive
             fi
         else
             printf "${PREFIX}Directory not empty, cannot download, clear directory to allow it...\n"
